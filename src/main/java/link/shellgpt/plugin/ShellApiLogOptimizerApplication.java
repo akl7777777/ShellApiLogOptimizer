@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @EsMapperScan("link.shellgpt.plugin.*.*.dao")
-public class ShellApiLogOptimizrApplication {
+public class ShellApiLogOptimizerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ShellApiLogOptimizrApplication.class, args);
+		SpringApplication.run(ShellApiLogOptimizerApplication.class, args);
 	}
 
 }

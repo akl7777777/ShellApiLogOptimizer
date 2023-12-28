@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>link.shellgpt</groupId>
-	<artifactId>ShellApiLogOptimizr</artifactId>
+	<artifactId>ShellApiLogOptimizer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ShellApiLogOptimizr</name>
+	<name>ShellApiLogOptimizer</name>
 	<packaging>war</packaging>
 	<description>Demo project for Spring Boot</description>
 	<properties>

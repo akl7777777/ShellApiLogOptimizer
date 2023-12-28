@@ -8,7 +8,7 @@
 <!-- 属性描述 scan：性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true scanPeriod:设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。
 	debug:当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。 -->
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
-    <contextName>shellApiLogOptimizr</contextName>
+    <contextName>shellApiLogOptimizer</contextName>
 
     <!-- 定义日志文件 输入位置 -->
     <property name="log_dir" value="${catalina.home}/logs" />
@@ -64,11 +64,11 @@
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
-        <file>${log_dir}/shellApiLogOptimizr_error.log</file>
+        <file>${log_dir}/shellApiLogOptimizer_error.log</file>
         <!--<maxHistory>${maxHistory}</maxHistory>-->
         <!--<cleanHistoryOnStart>true</cleanHistoryOnStart>-->
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>${log_dir}/shellApiLogOptimizr_error.%i.log.zip</fileNamePattern>
+            <fileNamePattern>${log_dir}/shellApiLogOptimizer_error.%i.log.zip</fileNamePattern>
             <minIndex>0</minIndex>
             <maxIndex>0</maxIndex>
         </rollingPolicy>
@@ -90,7 +90,7 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 按天回滚 daily -->
             <fileNamePattern>
-                ${log_dir}/%d{yyyy-MM-dd}/shellApiLogOptimizr_all.%i.log
+                ${log_dir}/%d{yyyy-MM-dd}/shellApiLogOptimizer_all.%i.log
             </fileNamePattern>
             <!-- 日志最大的历史 30天 -->
             <maxHistory>${maxHistory}</maxHistory>
@@ -110,9 +110,9 @@
 
     <!--最新的ALL级别日志-->
     <appender name="NEW_ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log_dir}/shellApiLogOptimizr.log</file>
+        <file>${log_dir}/shellApiLogOptimizer.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>${log_dir}/shellApiLogOptimizr.%i.log.zip</fileNamePattern>
+            <fileNamePattern>${log_dir}/shellApiLogOptimizer.%i.log.zip</fileNamePattern>
             <minIndex>0</minIndex>
             <maxIndex>0</maxIndex>
         </rollingPolicy>
