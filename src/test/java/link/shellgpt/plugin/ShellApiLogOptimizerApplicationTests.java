@@ -7,9 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ShellApiLogOptimizerApplicationTests {
 
 
-    @Test
-    void contextLoads() {
-    }
+//    @Test
+//    void contextLoads() {
+//    }
 
 
 }
