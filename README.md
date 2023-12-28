@@ -1,0 +1,2 @@
+# ShellApiLogOptimizr
+一款针对于ShellApi的日志优化插件,可以提升查询以及统计速度
