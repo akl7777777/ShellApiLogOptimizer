@@ -1,22 +1,20 @@
 package link.shellgpt.plugin.business.log.controller;
 
-import cn.hutool.json.JSONObject;
-import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
+import link.shellgpt.plugin.business.log.model.Log;
 import link.shellgpt.plugin.business.log.service.LogService;
 import link.shellgpt.plugin.common.utils.ApiResponse;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @Validated
 @RequestMapping("${api.version}/log")
 public class LogController {
 
-    public static final Log log = LogFactory.get();
+    public static final cn.hutool.log.Log log = LogFactory.get();
 
     private final LogService logService;
 
@@ -38,11 +36,17 @@ public class LogController {
     }
 
     @PostMapping(value = "/save")
-    public ApiResponse<String> save(@RequestBody String json) {
+    public ApiResponse<String> save(@RequestBody Log log) {
+        logService.save(log);
         return ApiResponse.success(null);
 
     }
 
+    @PostMapping("/search")
+    public ApiResponse<List<Log>> search(@RequestBody Log log) {
+        List<Log> logList = logService.search(log);
+        return ApiResponse.success(logList);
+    }
 
 
 }
