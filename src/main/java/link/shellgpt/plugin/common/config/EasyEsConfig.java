@@ -14,6 +14,7 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -32,15 +33,23 @@ public class EasyEsConfig {
     private static final Log log = LogFactory.get();
 
 
-    /*@Bean
+    /*@Value("${easy-es.address}")
+    private String address;
+
+    @Value("${easy-es.username}")
+    private String username;
+
+    @Value("${easy-es.password}")
+    private String password;
+
+    @Bean
     @Primary
     public RestHighLevelClient restHighLevelClient() {
-
         EasyEsConfigProperties easyEsConfigProperties = new EasyEsConfigProperties();
         // 处理地址
         easyEsConfigProperties.setAddress(address);
-        easyEsConfigProperties.setUsername("elastic");
-        easyEsConfigProperties.setPassword("YourElasticPassword");
+        easyEsConfigProperties.setUsername(username);
+        easyEsConfigProperties.setPassword(password);
         if (StringUtils.isEmpty(address)) {
             throw ExceptionUtils.eee("please config the es address");
         }
