@@ -2,3 +2,4 @@
 /target/
 /catalina.home_IS_UNDEFINED/
 /*.iml
+/logs/

@@ -1,17 +1,21 @@
 package link.shellgpt.plugin.business.log.model;
 
 import cn.easyes.annotation.IndexField;
+import cn.easyes.annotation.IndexId;
 import cn.easyes.annotation.IndexName;
 import cn.easyes.annotation.rely.Analyzer;
 import cn.easyes.annotation.rely.FieldStrategy;
 import cn.easyes.annotation.rely.FieldType;
+import cn.easyes.annotation.rely.IdType;
 import lombok.Data;
 
 @Data
 @IndexName("log_index")
 public class Log {
+
+    @IndexId(type = IdType.CUSTOMIZE)
     @IndexField
-    private int id;
+    private String id;
 
     @IndexField
     private int userId;
