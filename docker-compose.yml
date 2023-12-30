@@ -7,7 +7,7 @@ services:
     environment:
       SERVER_SERVLET_CONTEXT_PATH: /shellApiLogOptimizer
       API_VERSION: service
-      EASY_ES_ENABLE: true
+      EASY_ES_ENABLE: "true"
       EASY_ES_ADDRESS: 127.0.0.1:9200
       EASY_ES_USERNAME: elastic
       EASY_ES_PASSWORD: YourElasticPassword
