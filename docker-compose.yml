@@ -1,6 +1,6 @@
-version: '3.8'
+version: '3.2'
 services:
-  shellapilogoptimizr:
+  shellapilogoptimizer:
     build: .
     ports:
       - "8080:8080"
@@ -11,3 +11,6 @@ services:
       EASY_ES_ADDRESS: 127.0.0.1:9200
       EASY_ES_USERNAME: elastic
       EASY_ES_PASSWORD: YourElasticPassword
+    volumes:
+      - ./logs:/usr/app/logs # 如果您希望将日志文件保存在宿主机上
+
