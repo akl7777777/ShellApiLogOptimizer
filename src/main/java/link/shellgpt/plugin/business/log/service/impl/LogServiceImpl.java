@@ -2,6 +2,7 @@ package link.shellgpt.plugin.business.log.service.impl;
 
 import cn.easyes.core.biz.EsPageInfo;
 import cn.easyes.core.conditions.select.LambdaEsQueryWrapper;
+import cn.hutool.core.util.StrUtil;
 import link.shellgpt.plugin.business.log.dao.LogMapper;
 import link.shellgpt.plugin.business.log.model.Log;
 import link.shellgpt.plugin.business.log.service.LogService;
@@ -42,22 +43,22 @@ public class LogServiceImpl implements LogService {
         if (log.getChannelId() != 0) {
             wrapper.eq(Log::getChannelId, log.getChannelId());
         }
-        if (log.getTokenKey() != null) {
+        if (StrUtil.isNotBlank(log.getTokenKey())) {
             wrapper.eq(Log::getTokenKey, log.getTokenKey());
         }
         if (log.getCreatedAt() != 0) {
             wrapper.eq(Log::getCreatedAt, log.getCreatedAt());
         }
-        if (log.getUsername() != null) {
+        if (StrUtil.isNotBlank(log.getUsername())) {
             wrapper.eq(Log::getUsername, log.getUsername());
         }
-        if (log.getTokenName() != null) {
+        if (StrUtil.isNotBlank(log.getTokenName())) {
             wrapper.eq(Log::getTokenName, log.getTokenName());
         }
-        if (log.getModelName() != null) {
+        if (StrUtil.isNotBlank(log.getModelName())) {
             wrapper.eq(Log::getModelName, log.getModelName());
         }
-        if (log.getChannelName() != null) {
+        if (StrUtil.isNotBlank(log.getChannelName())) {
             wrapper.eq(Log::getChannelName, log.getChannelName());
         }
         if (log.getQuota() != 0) {
@@ -69,13 +70,13 @@ public class LogServiceImpl implements LogService {
         if (log.getCompletionTokens() != 0) {
             wrapper.eq(Log::getCompletionTokens, log.getCompletionTokens());
         }
-        if (log.getPrompt() != null) {
+        if (StrUtil.isNotBlank(log.getPrompt())) {
             wrapper.eq(Log::getPrompt, log.getPrompt());
         }
         if (log.getRequestDuration() != 0) {
             wrapper.eq(Log::getRequestDuration, log.getRequestDuration());
         }
-        if (log.getContent() != null) {
+        if (StrUtil.isNotBlank(log.getContent())) {
             wrapper.eq(Log::getContent, log.getContent());
         }
         return logMapper.selectList(wrapper);
@@ -93,22 +94,22 @@ public class LogServiceImpl implements LogService {
         if (log.getChannelId() != 0) {
             wrapper.eq(Log::getChannelId, log.getChannelId());
         }
-        if (log.getTokenKey() != null) {
+        if (StrUtil.isNotBlank(log.getTokenKey())) {
             wrapper.eq(Log::getTokenKey, log.getTokenKey());
         }
         if (log.getCreatedAt() != 0) {
             wrapper.eq(Log::getCreatedAt, log.getCreatedAt());
         }
-        if (log.getUsername() != null) {
+        if (StrUtil.isNotBlank(log.getUsername())) {
             wrapper.eq(Log::getUsername, log.getUsername());
         }
-        if (log.getTokenName() != null) {
+        if (StrUtil.isNotBlank(log.getTokenName())) {
             wrapper.eq(Log::getTokenName, log.getTokenName());
         }
-        if (log.getModelName() != null) {
+        if (StrUtil.isNotBlank(log.getModelName())) {
             wrapper.eq(Log::getModelName, log.getModelName());
         }
-        if (log.getChannelName() != null) {
+        if (StrUtil.isNotBlank(log.getChannelName())) {
             wrapper.eq(Log::getChannelName, log.getChannelName());
         }
         if (log.getQuota() != 0) {
@@ -120,13 +121,13 @@ public class LogServiceImpl implements LogService {
         if (log.getCompletionTokens() != 0) {
             wrapper.eq(Log::getCompletionTokens, log.getCompletionTokens());
         }
-        if (log.getPrompt() != null) {
+        if (StrUtil.isNotBlank(log.getPrompt())) {
             wrapper.eq(Log::getPrompt, log.getPrompt());
         }
         if (log.getRequestDuration() != 0) {
             wrapper.eq(Log::getRequestDuration, log.getRequestDuration());
         }
-        if (log.getContent() != null) {
+        if (StrUtil.isNotBlank(log.getContent())) {
             wrapper.eq(Log::getContent, log.getContent());
         }
         // 物理分页
