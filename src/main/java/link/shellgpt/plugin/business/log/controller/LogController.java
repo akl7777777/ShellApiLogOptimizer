@@ -1,5 +1,6 @@
 package link.shellgpt.plugin.business.log.controller;
 
+import cn.easyes.core.biz.EsPageInfo;
 import cn.hutool.log.LogFactory;
 import link.shellgpt.plugin.business.log.model.Log;
 import link.shellgpt.plugin.business.log.service.LogService;
@@ -45,6 +46,14 @@ public class LogController {
     @PostMapping("/search")
     public ApiResponse<List<Log>> search(@RequestBody Log log) {
         List<Log> logList = logService.search(log);
+        return ApiResponse.success(logList);
+    }
+
+    @PostMapping("/pageQuery")
+    public ApiResponse<EsPageInfo<Log>> pageQuery(@RequestBody Log log,
+                                                  @RequestParam(value = "page", defaultValue = "1") int page,
+                                                  @RequestParam(value = "size", defaultValue = "10") int size) {
+        EsPageInfo<Log> logList = logService.pageQuery(log, page, size);
         return ApiResponse.success(logList);
     }
 
