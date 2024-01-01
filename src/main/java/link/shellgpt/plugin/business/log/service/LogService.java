@@ -9,9 +9,9 @@ import java.util.List;
 public interface LogService {
     void createIndex();
 
-    void save(Log log);
+    void save(Log log,String dynamicIndex);
 
-    List<Log> search(Log log);
+    List<Log> search(Log log,String dynamicIndex);
 
-    EsPageInfo<Log> pageQuery(Log log, int page, int size);
+    EsPageInfo<Log> pageQuery(Log log, String dynamicIndex,int page, int size);
 }

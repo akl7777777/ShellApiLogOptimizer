@@ -26,12 +26,18 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public void save(Log log) {
+    public void save(Log log, String dynamicIndex) {
+        if (StrUtil.isNotBlank(dynamicIndex)) {
+            logMapper.setCurrentActiveIndex(dynamicIndex);
+        }
         logMapper.insert(log);
     }
 
     @Override
-    public List<Log> search(Log log) {
+    public List<Log> search(Log log,String dynamicIndex) {
+        if (StrUtil.isNotBlank(dynamicIndex)) {
+            logMapper.setCurrentActiveIndex(dynamicIndex);
+        }
         LambdaEsQueryWrapper<Log> wrapper = new LambdaEsQueryWrapper<>();
 
         if (log.getUserId() != 0) {
@@ -83,7 +89,10 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public EsPageInfo<Log> pageQuery(Log log, int page, int size) {
+    public EsPageInfo<Log> pageQuery(Log log,String dynamicIndex, int page, int size) {
+        if (StrUtil.isNotBlank(dynamicIndex)) {
+            logMapper.setCurrentActiveIndex(dynamicIndex);
+        }
         LambdaEsQueryWrapper<Log> wrapper = new LambdaEsQueryWrapper<>();
         if (log.getUserId() != 0) {
             wrapper.eq(Log::getUserId, log.getUserId());

@@ -37,23 +37,24 @@ public class LogController {
     }
 
     @PostMapping(value = "/save")
-    public ApiResponse<String> save(@RequestBody Log log) {
-        logService.save(log);
+    public ApiResponse<String> save(@RequestBody Log log, @RequestParam String dynamicIndex) {
+        logService.save(log, dynamicIndex);
         return ApiResponse.success(null);
 
     }
 
     @PostMapping("/search")
-    public ApiResponse<List<Log>> search(@RequestBody Log log) {
-        List<Log> logList = logService.search(log);
+    public ApiResponse<List<Log>> search(@RequestBody Log log, @RequestParam String dynamicIndex) {
+        List<Log> logList = logService.search(log, dynamicIndex);
         return ApiResponse.success(logList);
     }
 
     @PostMapping("/pageQuery")
     public ApiResponse<EsPageInfo<Log>> pageQuery(@RequestBody Log log,
+                                                  @RequestParam String dynamicIndex,
                                                   @RequestParam(value = "page", defaultValue = "1") int page,
                                                   @RequestParam(value = "size", defaultValue = "10") int size) {
-        EsPageInfo<Log> logList = logService.pageQuery(log, page, size);
+        EsPageInfo<Log> logList = logService.pageQuery(log, dynamicIndex, page, size);
         return ApiResponse.success(logList);
     }
 
