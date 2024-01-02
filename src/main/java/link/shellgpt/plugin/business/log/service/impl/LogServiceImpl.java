@@ -143,4 +143,12 @@ public class LogServiceImpl implements LogService {
         return logMapper.pageQuery(wrapper, page, size);
     }
 
+    @Override
+    public void saveBatch(List<Log> logs, String dynamicIndex) {
+        if (StrUtil.isNotBlank(dynamicIndex)) {
+            logMapper.setCurrentActiveIndex(dynamicIndex);
+        }
+        logMapper.insertBatch(logs);
+    }
+
 }

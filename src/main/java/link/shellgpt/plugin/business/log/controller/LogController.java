@@ -43,6 +43,14 @@ public class LogController {
 
     }
 
+    @PostMapping(value = "/saveBatch")
+    public ApiResponse<String> saveBatch(@RequestBody List<Log> logs, @RequestParam String dynamicIndex) {
+        logService.saveBatch(logs, dynamicIndex);
+        return ApiResponse.success(null);
+
+    }
+
+
     @PostMapping("/search")
     public ApiResponse<List<Log>> search(@RequestBody Log log, @RequestParam String dynamicIndex) {
         List<Log> logList = logService.search(log, dynamicIndex);
