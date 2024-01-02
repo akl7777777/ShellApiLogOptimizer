@@ -16,4 +16,6 @@ public interface LogService {
     EsPageInfo<Log> pageQuery(Log log, String dynamicIndex,int page, int size);
 
     void saveBatch(List<Log> logs, String dynamicIndex);
+
+    void deleteIndex(List<String> indexList);
 }

@@ -2,6 +2,8 @@ package link.shellgpt.plugin.business.log.service.impl;
 
 import cn.easyes.core.biz.EsPageInfo;
 import cn.easyes.core.conditions.select.LambdaEsQueryWrapper;
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import link.shellgpt.plugin.business.log.dao.LogMapper;
 import link.shellgpt.plugin.business.log.model.Log;
@@ -149,6 +151,11 @@ public class LogServiceImpl implements LogService {
             logMapper.setCurrentActiveIndex(dynamicIndex);
         }
         logMapper.insertBatch(logs);
+    }
+
+    @Override
+    public void deleteIndex(List<String> indexList) {
+        logMapper.deleteIndex(ArrayUtil.toArray(indexList, String.class));
     }
 
 }

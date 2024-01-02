@@ -51,6 +51,14 @@ public class LogController {
     }
 
 
+    @PostMapping(value = "/deleteIndex")
+    public ApiResponse<String> deleteIndex(@RequestBody List<String> indexList) {
+        logService.deleteIndex(indexList);
+        return ApiResponse.success(null);
+
+    }
+
+
     @PostMapping("/search")
     public ApiResponse<List<Log>> search(@RequestBody Log log, @RequestParam String dynamicIndex) {
         List<Log> logList = logService.search(log, dynamicIndex);
