@@ -155,6 +155,10 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public void deleteIndex(List<String> indexList) {
+        if (CollUtil.isEmpty(indexList)) {
+            logMapper.deleteIndex("log_index");
+            return;
+        }
         logMapper.deleteIndex(ArrayUtil.toArray(indexList, String.class));
     }
 
