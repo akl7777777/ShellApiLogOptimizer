@@ -2,6 +2,7 @@ package link.shellgpt.plugin.business.log.controller;
 
 import cn.easyes.core.biz.EsPageInfo;
 import cn.hutool.log.LogFactory;
+import link.shellgpt.plugin.business.log.dto.LogDTO;
 import link.shellgpt.plugin.business.log.model.Log;
 import link.shellgpt.plugin.business.log.service.LogService;
 import link.shellgpt.plugin.common.utils.ApiResponse;
@@ -77,9 +78,9 @@ public class LogController {
     }
 
     @PostMapping("/executeSql")
-    public ApiResponse<String> executeSql(@RequestBody String sql) {
+    public ApiResponse<String> executeSql(@RequestBody LogDTO logDTO) {
         try {
-            String result = logService.executeSqlQuery(sql);
+            String result = logService.executeSqlQuery(logDTO.getSql());
             return ApiResponse.success(result);
         } catch (Exception e) {
             log.error("SQL execution error", e);
