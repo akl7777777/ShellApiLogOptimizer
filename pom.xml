@@ -16,9 +16,9 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
+		<elasticsearch.version>7.14.0</elasticsearch.version>
 	</properties>
 	<dependencies>
-		<!-- 排除springboot中内置的es依赖,以防和easy-es中的依赖冲突-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -33,21 +33,31 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<!-- Elasticsearch -->
 		<dependency>
 			<groupId>org.elasticsearch.client</groupId>
 			<artifactId>elasticsearch-rest-high-level-client</artifactId>
-			<version>7.14.0</version>
+			<version>${elasticsearch.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.elasticsearch</groupId>
 			<artifactId>elasticsearch</artifactId>
-			<version>7.14.0</version>
+			<version>${elasticsearch.version}</version>
 		</dependency>
 
+		<!-- Easy ES -->
 		<dependency>
 			<groupId>cn.easy-es</groupId>
 			<artifactId>easy-es-boot-starter</artifactId>
 			<version>2.0.0-beta1</version>
+		</dependency>
+
+		<!-- Lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 		<dependency>
@@ -69,9 +79,16 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 
 </project>
-

@@ -9,13 +9,16 @@ import java.util.List;
 public interface LogService {
     void createIndex();
 
-    void save(Log log,String dynamicIndex);
+    void save(Log log, String dynamicIndex);
 
-    List<Log> search(Log log,String dynamicIndex);
+    List<Log> search(Log log, String dynamicIndex);
 
-    EsPageInfo<Log> pageQuery(Log log, String dynamicIndex,int page, int size);
+    EsPageInfo<Log> pageQuery(Log log, String dynamicIndex, int page, int size);
 
     void saveBatch(List<Log> logs, String dynamicIndex);
 
     void deleteIndex(List<String> indexList);
+
+    String executeSqlQuery(String sql) throws Exception;
+
 }

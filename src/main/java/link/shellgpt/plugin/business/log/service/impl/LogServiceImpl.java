@@ -8,18 +8,22 @@ import cn.hutool.core.util.StrUtil;
 import link.shellgpt.plugin.business.log.dao.LogMapper;
 import link.shellgpt.plugin.business.log.model.Log;
 import link.shellgpt.plugin.business.log.service.LogService;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
 public class LogServiceImpl implements LogService {
 
     private final LogMapper logMapper;
+    private final RestHighLevelClient restHighLevelClient;
 
 
-    public LogServiceImpl(LogMapper logMapper) {
+    public LogServiceImpl(LogMapper logMapper, RestHighLevelClient restHighLevelClient) {
         this.logMapper = logMapper;
+        this.restHighLevelClient = restHighLevelClient;
     }
 
     @Override
@@ -36,7 +40,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public List<Log> search(Log log,String dynamicIndex) {
+    public List<Log> search(Log log, String dynamicIndex) {
         if (StrUtil.isNotBlank(dynamicIndex)) {
             logMapper.setCurrentActiveIndex(dynamicIndex);
         }
@@ -91,7 +95,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public EsPageInfo<Log> pageQuery(Log log,String dynamicIndex, int page, int size) {
+    public EsPageInfo<Log> pageQuery(Log log, String dynamicIndex, int page, int size) {
         if (StrUtil.isNotBlank(dynamicIndex)) {
             logMapper.setCurrentActiveIndex(dynamicIndex);
         }
@@ -162,4 +166,8 @@ public class LogServiceImpl implements LogService {
         logMapper.deleteIndex(ArrayUtil.toArray(indexList, String.class));
     }
 
+    @Override
+    public String executeSqlQuery(String sql) throws IOException {
+        return logMapper.executeSQL(sql);
+    }
 }

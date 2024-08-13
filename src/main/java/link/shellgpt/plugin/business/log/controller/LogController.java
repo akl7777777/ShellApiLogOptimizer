@@ -8,6 +8,8 @@ import link.shellgpt.plugin.common.utils.ApiResponse;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.List;
 
 @RestController
@@ -72,6 +74,26 @@ public class LogController {
                                                   @RequestParam(value = "size", defaultValue = "10") int size) {
         EsPageInfo<Log> logList = logService.pageQuery(log, dynamicIndex, page, size);
         return ApiResponse.success(logList);
+    }
+
+    @PostMapping("/executeSql")
+    public ApiResponse<String> executeSql(@RequestBody String sql) {
+        try {
+            String result = logService.executeSqlQuery(sql);
+            return ApiResponse.success(result);
+        } catch (Exception e) {
+            log.error("SQL execution error", e);
+
+            // 判断是否有是该类型的异常
+            if (e instanceof UndeclaredThrowableException) {
+                Throwable targetException = ((UndeclaredThrowableException) e).getUndeclaredThrowable();
+                if (targetException instanceof InvocationTargetException) {
+                    InvocationTargetException sqlException = (InvocationTargetException) targetException;
+                    return ApiResponse.error(500, "SQL execution failed: " + sqlException.getTargetException());
+                }
+            }
+            return ApiResponse.error(500, "SQL execution failed: " + e.getMessage());
+        }
     }
 
 
