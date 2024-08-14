@@ -6,6 +6,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import link.shellgpt.plugin.business.log.dao.LogMapper;
+import link.shellgpt.plugin.business.log.dto.LogQueryDTO;
 import link.shellgpt.plugin.business.log.model.Log;
 import link.shellgpt.plugin.business.log.service.LogService;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -57,141 +58,111 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public List<Log> search(Log log, String dynamicIndex) {
-        if (StrUtil.isNotBlank(dynamicIndex)) {
-            logMapper.setCurrentActiveIndex(dynamicIndex);
+    public List<Log> search(LogQueryDTO queryDTO) {
+        if (StrUtil.isNotBlank(queryDTO.getDynamicIndex())) {
+            logMapper.setCurrentActiveIndex(queryDTO.getDynamicIndex());
         }
         LambdaEsQueryWrapper<Log> wrapper = new LambdaEsQueryWrapper<>();
         // 添加新字段的查询条件
-        if (StrUtil.isNotBlank(log.getRequestId())) {
-            wrapper.eq(Log::getRequestId, log.getRequestId());
+        if (StrUtil.isNotBlank(queryDTO.getRequestId())) {
+            wrapper.eq(Log::getRequestId, queryDTO.getRequestId());
         }
-        if (log.getResponseFirstByteDuration() != 0) {
-            wrapper.eq(Log::getResponseFirstByteDuration, log.getResponseFirstByteDuration());
+        if (queryDTO.getIsStream() != null){
+            wrapper.eq(Log::isStream, queryDTO.getIsStream());
         }
-        if (log.getTotalDuration() != 0) {
-            wrapper.eq(Log::getTotalDuration, log.getTotalDuration());
-        }
-        wrapper.eq(Log::isStream, log.isStream());
-        if (StrUtil.isNotBlank(log.getIp())) {
-            wrapper.eq(Log::getIp, log.getIp());
+        if (StrUtil.isNotBlank(queryDTO.getIp())) {
+            wrapper.eq(Log::getIp, queryDTO.getIp());
         }
 
-        if (log.getUserId() != 0) {
-            wrapper.eq(Log::getUserId, log.getUserId());
+        if (queryDTO.getUserId() != null && queryDTO.getUserId() != 0) {
+            wrapper.eq(Log::getUserId, queryDTO.getUserId());
         }
-        if (log.getType() != 0) {
-            wrapper.eq(Log::getType, log.getType());
+        if (queryDTO.getType() != null && queryDTO.getType().size() > 0) {
+            wrapper.in(Log::getType, queryDTO.getType());
         }
-        if (log.getChannelId() != 0) {
-            wrapper.eq(Log::getChannelId, log.getChannelId());
+        if (queryDTO.getChannelId() != 0) {
+            wrapper.eq(Log::getChannelId, queryDTO.getChannelId());
         }
-        if (StrUtil.isNotBlank(log.getTokenKey())) {
-            wrapper.eq(Log::getTokenKey, log.getTokenKey());
+        if (StrUtil.isNotBlank(queryDTO.getTokenKey())) {
+            wrapper.eq(Log::getTokenKey, queryDTO.getTokenKey());
         }
-        if (log.getCreatedAt() != null) {
-            wrapper.eq(Log::getCreatedAt, log.getCreatedAt());
+        if (queryDTO.getStartTimestamp() != null && queryDTO.getStartTimestamp() != 0) {
+            wrapper.ge(Log::getCreatedAt, queryDTO.getStartTimestamp() * 1000);
         }
-        if (StrUtil.isNotBlank(log.getUsername())) {
-            wrapper.eq(Log::getUsername, log.getUsername());
+        if (queryDTO.getEndTimestamp() != null && queryDTO.getEndTimestamp() != 0) {
+            wrapper.le(Log::getCreatedAt, queryDTO.getEndTimestamp() * 1000);
         }
-        if (StrUtil.isNotBlank(log.getTokenName())) {
-            wrapper.eq(Log::getTokenName, log.getTokenName());
+        if (StrUtil.isNotBlank(queryDTO.getUsername())) {
+            wrapper.eq(Log::getUsername, queryDTO.getUsername());
         }
-        if (StrUtil.isNotBlank(log.getModelName())) {
-            wrapper.eq(Log::getModelName, log.getModelName());
+        if (StrUtil.isNotBlank(queryDTO.getTokenName())) {
+            wrapper.eq(Log::getTokenName, queryDTO.getTokenName());
         }
-        if (StrUtil.isNotBlank(log.getChannelName())) {
-            wrapper.eq(Log::getChannelName, log.getChannelName());
+        if (StrUtil.isNotBlank(queryDTO.getModelName())) {
+            wrapper.eq(Log::getModelName, queryDTO.getModelName());
         }
-        if (log.getQuota() != 0) {
-            wrapper.eq(Log::getQuota, log.getQuota());
+        if (StrUtil.isNotBlank(queryDTO.getChannelName())) {
+            wrapper.eq(Log::getChannelName, queryDTO.getChannelName());
         }
-        if (log.getPromptTokens() != 0) {
-            wrapper.eq(Log::getPromptTokens, log.getPromptTokens());
-        }
-        if (log.getCompletionTokens() != 0) {
-            wrapper.eq(Log::getCompletionTokens, log.getCompletionTokens());
-        }
-        if (StrUtil.isNotBlank(log.getPrompt())) {
-            wrapper.eq(Log::getPrompt, log.getPrompt());
-        }
-        if (log.getRequestDuration() != 0) {
-            wrapper.eq(Log::getRequestDuration, log.getRequestDuration());
-        }
-        if (StrUtil.isNotBlank(log.getContent())) {
-            wrapper.eq(Log::getContent, log.getContent());
+        if (StrUtil.isNotBlank(queryDTO.getContent())) {
+            wrapper.like(Log::getContent, queryDTO.getContent());
         }
         return logMapper.selectList(wrapper);
     }
 
     @Override
-    public EsPageInfo<Log> pageQuery(Log log, String dynamicIndex, int page, int size) {
-        if (StrUtil.isNotBlank(dynamicIndex)) {
-            logMapper.setCurrentActiveIndex(dynamicIndex);
+    public EsPageInfo<Log> pageQuery(LogQueryDTO queryDTO) {
+        if (StrUtil.isNotBlank(queryDTO.getDynamicIndex())) {
+            logMapper.setCurrentActiveIndex(queryDTO.getDynamicIndex());
         }
         LambdaEsQueryWrapper<Log> wrapper = new LambdaEsQueryWrapper<>();
-        // 添加新字段的查询条件
-        if (StrUtil.isNotBlank(log.getRequestId())) {
-            wrapper.eq(Log::getRequestId, log.getRequestId());
+
+        // 添加查询条件
+        if (StrUtil.isNotBlank(queryDTO.getRequestId())) {
+            wrapper.eq(Log::getRequestId, queryDTO.getRequestId());
         }
-        if (log.getResponseFirstByteDuration() != 0) {
-            wrapper.eq(Log::getResponseFirstByteDuration, log.getResponseFirstByteDuration());
+        if (queryDTO.getIsStream() != null) {
+            wrapper.eq(Log::isStream, queryDTO.getIsStream());
         }
-        if (log.getTotalDuration() != 0) {
-            wrapper.eq(Log::getTotalDuration, log.getTotalDuration());
+        if (StrUtil.isNotBlank(queryDTO.getIp())) {
+            wrapper.eq(Log::getIp, queryDTO.getIp());
         }
-        wrapper.eq(Log::isStream, log.isStream());
-        if (StrUtil.isNotBlank(log.getIp())) {
-            wrapper.eq(Log::getIp, log.getIp());
+        if (queryDTO.getUserId() != null && queryDTO.getUserId() != 0) {
+            wrapper.eq(Log::getUserId, queryDTO.getUserId());
         }
-        if (log.getUserId() != 0) {
-            wrapper.eq(Log::getUserId, log.getUserId());
+        if (queryDTO.getType() != null && !queryDTO.getType().isEmpty()) {
+            wrapper.in(Log::getType, queryDTO.getType());
         }
-        if (log.getType() != 0) {
-            wrapper.eq(Log::getType, log.getType());
+        if (queryDTO.getChannelId() != null && queryDTO.getChannelId() != 0) {
+            wrapper.eq(Log::getChannelId, queryDTO.getChannelId());
         }
-        if (log.getChannelId() != 0) {
-            wrapper.eq(Log::getChannelId, log.getChannelId());
+        if (StrUtil.isNotBlank(queryDTO.getTokenKey())) {
+            wrapper.eq(Log::getTokenKey, queryDTO.getTokenKey());
         }
-        if (StrUtil.isNotBlank(log.getTokenKey())) {
-            wrapper.eq(Log::getTokenKey, log.getTokenKey());
+        if (queryDTO.getStartTimestamp() != null && queryDTO.getStartTimestamp() != 0) {
+            wrapper.ge(Log::getCreatedAt, queryDTO.getStartTimestamp() * 1000);
         }
-        if (log.getCreatedAt() != null) {
-            wrapper.eq(Log::getCreatedAt, log.getCreatedAt());
+        if (queryDTO.getEndTimestamp() != null && queryDTO.getEndTimestamp() != 0) {
+            wrapper.le(Log::getCreatedAt, queryDTO.getEndTimestamp() * 1000);
         }
-        if (StrUtil.isNotBlank(log.getUsername())) {
-            wrapper.eq(Log::getUsername, log.getUsername());
+        if (StrUtil.isNotBlank(queryDTO.getUsername())) {
+            wrapper.eq(Log::getUsername, queryDTO.getUsername());
         }
-        if (StrUtil.isNotBlank(log.getTokenName())) {
-            wrapper.eq(Log::getTokenName, log.getTokenName());
+        if (StrUtil.isNotBlank(queryDTO.getTokenName())) {
+            wrapper.eq(Log::getTokenName, queryDTO.getTokenName());
         }
-        if (StrUtil.isNotBlank(log.getModelName())) {
-            wrapper.eq(Log::getModelName, log.getModelName());
+        if (StrUtil.isNotBlank(queryDTO.getModelName())) {
+            wrapper.eq(Log::getModelName, queryDTO.getModelName());
         }
-        if (StrUtil.isNotBlank(log.getChannelName())) {
-            wrapper.eq(Log::getChannelName, log.getChannelName());
+        if (StrUtil.isNotBlank(queryDTO.getChannelName())) {
+            wrapper.eq(Log::getChannelName, queryDTO.getChannelName());
         }
-        if (log.getQuota() != 0) {
-            wrapper.eq(Log::getQuota, log.getQuota());
+        if (StrUtil.isNotBlank(queryDTO.getContent())) {
+            wrapper.like(Log::getContent, queryDTO.getContent());
         }
-        if (log.getPromptTokens() != 0) {
-            wrapper.eq(Log::getPromptTokens, log.getPromptTokens());
-        }
-        if (log.getCompletionTokens() != 0) {
-            wrapper.eq(Log::getCompletionTokens, log.getCompletionTokens());
-        }
-        if (StrUtil.isNotBlank(log.getPrompt())) {
-            wrapper.eq(Log::getPrompt, log.getPrompt());
-        }
-        if (log.getRequestDuration() != 0) {
-            wrapper.eq(Log::getRequestDuration, log.getRequestDuration());
-        }
-        if (StrUtil.isNotBlank(log.getContent())) {
-            wrapper.eq(Log::getContent, log.getContent());
-        }
+        wrapper.orderBy(true,false,Log::getCreatedAt);
         // 物理分页
-        return logMapper.pageQuery(wrapper, page, size);
+        return logMapper.pageQuery(wrapper, queryDTO.getPage(), queryDTO.getSize());
     }
 
     @Override
@@ -217,70 +188,57 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public Long count(Log log, String dynamicIndex) {
-        if (StrUtil.isNotBlank(dynamicIndex)) {
-            logMapper.setCurrentActiveIndex(dynamicIndex);
+    public Long count(LogQueryDTO queryDTO) {
+        if (StrUtil.isNotBlank(queryDTO.getDynamicIndex())) {
+            logMapper.setCurrentActiveIndex(queryDTO.getDynamicIndex());
         }
         LambdaEsQueryWrapper<Log> wrapper = new LambdaEsQueryWrapper<>();
-        // 添加新字段的查询条件
-        if (StrUtil.isNotBlank(log.getRequestId())) {
-            wrapper.eq(Log::getRequestId, log.getRequestId());
+
+        // 添加查询条件
+        if (StrUtil.isNotBlank(queryDTO.getRequestId())) {
+            wrapper.eq(Log::getRequestId, queryDTO.getRequestId());
         }
-        if (log.getResponseFirstByteDuration() != 0) {
-            wrapper.eq(Log::getResponseFirstByteDuration, log.getResponseFirstByteDuration());
+        if (queryDTO.getIsStream() != null){
+            wrapper.eq(Log::isStream, queryDTO.getIsStream());
         }
-        if (log.getTotalDuration() != 0) {
-            wrapper.eq(Log::getTotalDuration, log.getTotalDuration());
+        if (StrUtil.isNotBlank(queryDTO.getIp())) {
+            wrapper.eq(Log::getIp, queryDTO.getIp());
         }
-        wrapper.eq(Log::isStream, log.isStream());
-        if (StrUtil.isNotBlank(log.getIp())) {
-            wrapper.eq(Log::getIp, log.getIp());
+        if (queryDTO.getUserId() != null && queryDTO.getUserId() != 0) {
+            wrapper.eq(Log::getUserId, queryDTO.getUserId());
         }
-        if (log.getUserId() != 0) {
-            wrapper.eq(Log::getUserId, log.getUserId());
+        if (queryDTO.getType() != null && !queryDTO.getType().isEmpty()) {
+            wrapper.in(Log::getType, queryDTO.getType());
         }
-        if (log.getType() != 0) {
-            wrapper.eq(Log::getType, log.getType());
+        if (queryDTO.getChannelId() != null && queryDTO.getChannelId() != 0) {
+            wrapper.eq(Log::getChannelId, queryDTO.getChannelId());
         }
-        if (log.getChannelId() != 0) {
-            wrapper.eq(Log::getChannelId, log.getChannelId());
+        if (StrUtil.isNotBlank(queryDTO.getTokenKey())) {
+            wrapper.eq(Log::getTokenKey, queryDTO.getTokenKey());
         }
-        if (StrUtil.isNotBlank(log.getTokenKey())) {
-            wrapper.eq(Log::getTokenKey, log.getTokenKey());
+        if (queryDTO.getStartTimestamp() != null && queryDTO.getStartTimestamp() != 0) {
+            wrapper.ge(Log::getCreatedAt, queryDTO.getStartTimestamp() * 1000);
         }
-        if (log.getCreatedAt() != null) {
-            wrapper.eq(Log::getCreatedAt, log.getCreatedAt());
+        if (queryDTO.getEndTimestamp() != null && queryDTO.getEndTimestamp() != 0) {
+            wrapper.le(Log::getCreatedAt, queryDTO.getEndTimestamp() * 1000);
         }
-        if (StrUtil.isNotBlank(log.getUsername())) {
-            wrapper.eq(Log::getUsername, log.getUsername());
+        if (StrUtil.isNotBlank(queryDTO.getUsername())) {
+            wrapper.eq(Log::getUsername, queryDTO.getUsername());
         }
-        if (StrUtil.isNotBlank(log.getTokenName())) {
-            wrapper.eq(Log::getTokenName, log.getTokenName());
+        if (StrUtil.isNotBlank(queryDTO.getTokenName())) {
+            wrapper.eq(Log::getTokenName, queryDTO.getTokenName());
         }
-        if (StrUtil.isNotBlank(log.getModelName())) {
-            wrapper.eq(Log::getModelName, log.getModelName());
+        if (StrUtil.isNotBlank(queryDTO.getModelName())) {
+            wrapper.eq(Log::getModelName, queryDTO.getModelName());
         }
-        if (StrUtil.isNotBlank(log.getChannelName())) {
-            wrapper.eq(Log::getChannelName, log.getChannelName());
+        if (StrUtil.isNotBlank(queryDTO.getChannelName())) {
+            wrapper.eq(Log::getChannelName, queryDTO.getChannelName());
         }
-        if (log.getQuota() != 0) {
-            wrapper.eq(Log::getQuota, log.getQuota());
+        if (StrUtil.isNotBlank(queryDTO.getContent())) {
+            wrapper.like(Log::getContent, queryDTO.getContent());
         }
-        if (log.getPromptTokens() != 0) {
-            wrapper.eq(Log::getPromptTokens, log.getPromptTokens());
-        }
-        if (log.getCompletionTokens() != 0) {
-            wrapper.eq(Log::getCompletionTokens, log.getCompletionTokens());
-        }
-        if (StrUtil.isNotBlank(log.getPrompt())) {
-            wrapper.eq(Log::getPrompt, log.getPrompt());
-        }
-        if (log.getRequestDuration() != 0) {
-            wrapper.eq(Log::getRequestDuration, log.getRequestDuration());
-        }
-        if (StrUtil.isNotBlank(log.getContent())) {
-            wrapper.eq(Log::getContent, log.getContent());
-        }
+
         return logMapper.selectCount(wrapper);
     }
+
 }

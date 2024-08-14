@@ -3,6 +3,7 @@ package link.shellgpt.plugin.business.log.controller;
 import cn.easyes.core.biz.EsPageInfo;
 import cn.hutool.log.LogFactory;
 import link.shellgpt.plugin.business.log.dto.LogDTO;
+import link.shellgpt.plugin.business.log.dto.LogQueryDTO;
 import link.shellgpt.plugin.business.log.model.Log;
 import link.shellgpt.plugin.business.log.service.LogService;
 import link.shellgpt.plugin.common.utils.ApiResponse;
@@ -70,24 +71,20 @@ public class LogController {
 
 
     @PostMapping("/search")
-    public ApiResponse<List<Log>> search(@RequestBody Log log, @RequestParam String dynamicIndex) {
-        List<Log> logList = logService.search(log, dynamicIndex);
+    public ApiResponse<List<Log>> search(@RequestBody LogQueryDTO queryDTO) {
+        List<Log> logList = logService.search(queryDTO);
         return ApiResponse.success(logList);
     }
 
     @PostMapping("/pageQuery")
-    public ApiResponse<EsPageInfo<Log>> pageQuery(@RequestBody Log log,
-                                                  @RequestParam String dynamicIndex,
-                                                  @RequestParam(value = "page", defaultValue = "1") int page,
-                                                  @RequestParam(value = "size", defaultValue = "10") int size) {
-        EsPageInfo<Log> logList = logService.pageQuery(log, dynamicIndex, page, size);
+    public ApiResponse<EsPageInfo<Log>> pageQuery(@RequestBody LogQueryDTO queryDTO) {
+        EsPageInfo<Log> logList = logService.pageQuery(queryDTO);
         return ApiResponse.success(logList);
     }
 
     @PostMapping("/count")
-    public ApiResponse<Long> count(@RequestBody Log log,
-                                      @RequestParam String dynamicIndex) {
-        Long cnt = logService.count(log, dynamicIndex);
+    public ApiResponse<Long> count(@RequestBody LogQueryDTO queryDTO) {
+        Long cnt = logService.count(queryDTO);
         return ApiResponse.success(cnt);
     }
 

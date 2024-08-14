@@ -2,6 +2,7 @@ package link.shellgpt.plugin.business.log.service;
 
 
 import cn.easyes.core.biz.EsPageInfo;
+import link.shellgpt.plugin.business.log.dto.LogQueryDTO;
 import link.shellgpt.plugin.business.log.model.Log;
 
 import java.util.List;
@@ -11,17 +12,17 @@ public interface LogService {
 
     void save(Log log, String dynamicIndex);
 
-    List<Log> search(Log log, String dynamicIndex);
+    List<Log> search(LogQueryDTO queryDTO);
 
-    EsPageInfo<Log> pageQuery(Log log, String dynamicIndex, int page, int size);
+    EsPageInfo<Log> pageQuery(LogQueryDTO queryDTO);
+
+    Long count(LogQueryDTO queryDTO);
 
     void saveBatch(List<Log> logs, String dynamicIndex);
 
     void deleteIndex(List<String> indexList);
 
     String executeSqlQuery(String sql) throws Exception;
-
-    Long count(Log log, String dynamicIndex);
 
     // getCurrentIndexName
     String getCurrentIndexName();
