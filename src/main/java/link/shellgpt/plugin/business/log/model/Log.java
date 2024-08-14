@@ -8,6 +8,8 @@ import cn.easyes.annotation.rely.FieldType;
 import cn.easyes.annotation.rely.IdType;
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 @IndexName("log_index")
 public class Log {
@@ -23,7 +25,7 @@ public class Log {
     private int userId;
 
     @IndexField(fieldType = FieldType.DATE, dateFormat = "epoch_millis")
-    private long createdAt;
+    private Date createdAt;
 
     @IndexField
     private int type;

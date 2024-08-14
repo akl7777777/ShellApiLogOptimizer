@@ -89,7 +89,7 @@ public class LogServiceImpl implements LogService {
         if (StrUtil.isNotBlank(log.getTokenKey())) {
             wrapper.eq(Log::getTokenKey, log.getTokenKey());
         }
-        if (log.getCreatedAt() != 0) {
+        if (log.getCreatedAt() != null) {
             wrapper.eq(Log::getCreatedAt, log.getCreatedAt());
         }
         if (StrUtil.isNotBlank(log.getUsername())) {
@@ -157,7 +157,7 @@ public class LogServiceImpl implements LogService {
         if (StrUtil.isNotBlank(log.getTokenKey())) {
             wrapper.eq(Log::getTokenKey, log.getTokenKey());
         }
-        if (log.getCreatedAt() != 0) {
+        if (log.getCreatedAt() != null) {
             wrapper.eq(Log::getCreatedAt, log.getCreatedAt());
         }
         if (StrUtil.isNotBlank(log.getUsername())) {
@@ -248,7 +248,7 @@ public class LogServiceImpl implements LogService {
         if (StrUtil.isNotBlank(log.getTokenKey())) {
             wrapper.eq(Log::getTokenKey, log.getTokenKey());
         }
-        if (log.getCreatedAt() != 0) {
+        if (log.getCreatedAt() != null) {
             wrapper.eq(Log::getCreatedAt, log.getCreatedAt());
         }
         if (StrUtil.isNotBlank(log.getUsername())) {
