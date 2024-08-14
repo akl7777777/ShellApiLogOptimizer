@@ -71,7 +71,7 @@ public class Log {
     private long totalDuration;
 
     @IndexField
-    private boolean isStream;
+    private boolean stream;  // 而不是 isStream
 
     @IndexField(strategy = FieldStrategy.NOT_EMPTY)
     private String ip;
