@@ -3,7 +3,6 @@ package link.shellgpt.plugin.business.log.model;
 import cn.easyes.annotation.IndexField;
 import cn.easyes.annotation.IndexId;
 import cn.easyes.annotation.IndexName;
-import cn.easyes.annotation.rely.Analyzer;
 import cn.easyes.annotation.rely.FieldStrategy;
 import cn.easyes.annotation.rely.FieldType;
 import cn.easyes.annotation.rely.IdType;
@@ -18,6 +17,9 @@ public class Log {
     private String id;
 
     @IndexField
+    private String requestId;
+
+    @IndexField
     private int userId;
 
     @IndexField(fieldType = FieldType.DATE, dateFormat = "epoch_millis")
@@ -26,7 +28,6 @@ public class Log {
     @IndexField
     private int type;
 
-//    @IndexField(fieldType = FieldType.TEXT, analyzer = Analyzer.IK_SMART, searchAnalyzer = Analyzer.IK_MAX_WORD)
     @IndexField(fieldType = FieldType.TEXT)
     private String content;
 
@@ -62,4 +63,16 @@ public class Log {
 
     @IndexField(fieldType = FieldType.DATE, dateFormat = "epoch_millis")
     private long requestDuration;
+
+    @IndexField(fieldType = FieldType.DATE, dateFormat = "epoch_millis")
+    private long responseFirstByteDuration;
+
+    @IndexField(fieldType = FieldType.DATE, dateFormat = "epoch_millis")
+    private long totalDuration;
+
+    @IndexField
+    private boolean isStream;
+
+    @IndexField(strategy = FieldStrategy.NOT_EMPTY)
+    private String ip;
 }

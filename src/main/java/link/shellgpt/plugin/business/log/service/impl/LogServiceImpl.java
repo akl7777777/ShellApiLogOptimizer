@@ -45,6 +45,20 @@ public class LogServiceImpl implements LogService {
             logMapper.setCurrentActiveIndex(dynamicIndex);
         }
         LambdaEsQueryWrapper<Log> wrapper = new LambdaEsQueryWrapper<>();
+        // 添加新字段的查询条件
+        if (StrUtil.isNotBlank(log.getRequestId())) {
+            wrapper.eq(Log::getRequestId, log.getRequestId());
+        }
+        if (log.getResponseFirstByteDuration() != 0) {
+            wrapper.eq(Log::getResponseFirstByteDuration, log.getResponseFirstByteDuration());
+        }
+        if (log.getTotalDuration() != 0) {
+            wrapper.eq(Log::getTotalDuration, log.getTotalDuration());
+        }
+        wrapper.eq(Log::isStream, log.isStream());
+        if (StrUtil.isNotBlank(log.getIp())) {
+            wrapper.eq(Log::getIp, log.getIp());
+        }
 
         if (log.getUserId() != 0) {
             wrapper.eq(Log::getUserId, log.getUserId());
@@ -100,6 +114,20 @@ public class LogServiceImpl implements LogService {
             logMapper.setCurrentActiveIndex(dynamicIndex);
         }
         LambdaEsQueryWrapper<Log> wrapper = new LambdaEsQueryWrapper<>();
+        // 添加新字段的查询条件
+        if (StrUtil.isNotBlank(log.getRequestId())) {
+            wrapper.eq(Log::getRequestId, log.getRequestId());
+        }
+        if (log.getResponseFirstByteDuration() != 0) {
+            wrapper.eq(Log::getResponseFirstByteDuration, log.getResponseFirstByteDuration());
+        }
+        if (log.getTotalDuration() != 0) {
+            wrapper.eq(Log::getTotalDuration, log.getTotalDuration());
+        }
+        wrapper.eq(Log::isStream, log.isStream());
+        if (StrUtil.isNotBlank(log.getIp())) {
+            wrapper.eq(Log::getIp, log.getIp());
+        }
         if (log.getUserId() != 0) {
             wrapper.eq(Log::getUserId, log.getUserId());
         }
@@ -177,6 +205,20 @@ public class LogServiceImpl implements LogService {
             logMapper.setCurrentActiveIndex(dynamicIndex);
         }
         LambdaEsQueryWrapper<Log> wrapper = new LambdaEsQueryWrapper<>();
+        // 添加新字段的查询条件
+        if (StrUtil.isNotBlank(log.getRequestId())) {
+            wrapper.eq(Log::getRequestId, log.getRequestId());
+        }
+        if (log.getResponseFirstByteDuration() != 0) {
+            wrapper.eq(Log::getResponseFirstByteDuration, log.getResponseFirstByteDuration());
+        }
+        if (log.getTotalDuration() != 0) {
+            wrapper.eq(Log::getTotalDuration, log.getTotalDuration());
+        }
+        wrapper.eq(Log::isStream, log.isStream());
+        if (StrUtil.isNotBlank(log.getIp())) {
+            wrapper.eq(Log::getIp, log.getIp());
+        }
         if (log.getUserId() != 0) {
             wrapper.eq(Log::getUserId, log.getUserId());
         }
