@@ -26,6 +26,23 @@ public class LogServiceImpl implements LogService {
         this.restHighLevelClient = restHighLevelClient;
     }
 
+    public String getCurrentIndexName() {
+       /* LambdaEsIndexWrapper<Log> wrapper = new LambdaEsIndexWrapper<>();
+        Field indexNameField = null;
+        try {
+            indexNameField = wrapper.getClass().getDeclaredField("indexName");
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        }
+        indexNameField.setAccessible(true);
+        try {
+            return (String) indexNameField.get(wrapper);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }*/
+        return null;
+    }
+
     @Override
     public void createIndex() {
         logMapper.createIndex();
@@ -188,7 +205,7 @@ public class LogServiceImpl implements LogService {
     @Override
     public void deleteIndex(List<String> indexList) {
         if (CollUtil.isEmpty(indexList)) {
-            logMapper.deleteIndex("log_index");
+            logMapper.deleteIndex();
             return;
         }
         logMapper.deleteIndex(ArrayUtil.toArray(indexList, String.class));

@@ -32,6 +32,13 @@ public class LogController {
         return ApiResponse.success("测试成功");
     }
 
+    // getCurrentIndexName
+    @PostMapping(value = "/getCurrentIndexName")
+    public ApiResponse<String> getCurrentIndexName() {
+        String currentIndexName = logService.getCurrentIndexName();
+        return ApiResponse.success(currentIndexName);
+    }
+
 
     @PostMapping(value = "/createIndex")
     public ApiResponse<String> createIndex(@RequestBody String keyword) {
