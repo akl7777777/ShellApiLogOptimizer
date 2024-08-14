@@ -77,6 +77,14 @@ public class LogController {
         return ApiResponse.success(logList);
     }
 
+    @PostMapping("/count")
+    public ApiResponse<Long> count(@RequestBody Log log,
+                                      @RequestParam String dynamicIndex) {
+        Long cnt = logService.count(log, dynamicIndex);
+        return ApiResponse.success(cnt);
+    }
+
+
     @PostMapping("/executeSql")
     public ApiResponse<String> executeSql(@RequestBody LogDTO logDTO) {
         try {

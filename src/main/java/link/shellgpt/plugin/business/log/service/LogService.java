@@ -21,4 +21,5 @@ public interface LogService {
 
     String executeSqlQuery(String sql) throws Exception;
 
+    Long count(Log log, String dynamicIndex);
 }

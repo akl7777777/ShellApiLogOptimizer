@@ -170,4 +170,58 @@ public class LogServiceImpl implements LogService {
     public String executeSqlQuery(String sql) throws IOException {
         return logMapper.executeSQL(sql);
     }
+
+    @Override
+    public Long count(Log log, String dynamicIndex) {
+        if (StrUtil.isNotBlank(dynamicIndex)) {
+            logMapper.setCurrentActiveIndex(dynamicIndex);
+        }
+        LambdaEsQueryWrapper<Log> wrapper = new LambdaEsQueryWrapper<>();
+        if (log.getUserId() != 0) {
+            wrapper.eq(Log::getUserId, log.getUserId());
+        }
+        if (log.getType() != 0) {
+            wrapper.eq(Log::getType, log.getType());
+        }
+        if (log.getChannelId() != 0) {
+            wrapper.eq(Log::getChannelId, log.getChannelId());
+        }
+        if (StrUtil.isNotBlank(log.getTokenKey())) {
+            wrapper.eq(Log::getTokenKey, log.getTokenKey());
+        }
+        if (log.getCreatedAt() != 0) {
+            wrapper.eq(Log::getCreatedAt, log.getCreatedAt());
+        }
+        if (StrUtil.isNotBlank(log.getUsername())) {
+            wrapper.eq(Log::getUsername, log.getUsername());
+        }
+        if (StrUtil.isNotBlank(log.getTokenName())) {
+            wrapper.eq(Log::getTokenName, log.getTokenName());
+        }
+        if (StrUtil.isNotBlank(log.getModelName())) {
+            wrapper.eq(Log::getModelName, log.getModelName());
+        }
+        if (StrUtil.isNotBlank(log.getChannelName())) {
+            wrapper.eq(Log::getChannelName, log.getChannelName());
+        }
+        if (log.getQuota() != 0) {
+            wrapper.eq(Log::getQuota, log.getQuota());
+        }
+        if (log.getPromptTokens() != 0) {
+            wrapper.eq(Log::getPromptTokens, log.getPromptTokens());
+        }
+        if (log.getCompletionTokens() != 0) {
+            wrapper.eq(Log::getCompletionTokens, log.getCompletionTokens());
+        }
+        if (StrUtil.isNotBlank(log.getPrompt())) {
+            wrapper.eq(Log::getPrompt, log.getPrompt());
+        }
+        if (log.getRequestDuration() != 0) {
+            wrapper.eq(Log::getRequestDuration, log.getRequestDuration());
+        }
+        if (StrUtil.isNotBlank(log.getContent())) {
+            wrapper.eq(Log::getContent, log.getContent());
+        }
+        return logMapper.selectCount(wrapper);
+    }
 }
