@@ -9,3 +9,4 @@ docker-compose启动方式
 环境启动成功后看一眼docker ps进程死了没,死了就看下报错日志,如果报路径无权限建议chmod 777 -R data
 
 2.启动项目
+回到项目根目录 运行 docker compose up -d 项目运行在8080端口
