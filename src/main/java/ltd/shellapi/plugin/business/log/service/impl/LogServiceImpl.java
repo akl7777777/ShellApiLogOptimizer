@@ -45,8 +45,14 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public void createIndex() {
-        logMapper.createIndex();
+    public void createIndex(LogQueryDTO queryDTO) {
+        String dynamicIndex = queryDTO.getDynamicIndex();
+        if (StrUtil.isNotBlank(dynamicIndex)) {
+            logMapper.setCurrentActiveIndex(dynamicIndex);
+            logMapper.createIndex(dynamicIndex);
+        } else {
+            logMapper.createIndex();
+        }
     }
 
     @Override

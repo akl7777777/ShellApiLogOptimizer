@@ -41,8 +41,8 @@ public class LogController {
 
 
     @PostMapping(value = "/createIndex")
-    public ApiResponse<String> createIndex(@RequestBody String keyword) {
-        logService.createIndex();
+    public ApiResponse<String> createIndex(@RequestBody LogQueryDTO queryDTO) {
+        logService.createIndex(queryDTO);
         return ApiResponse.success(null);
     }
 

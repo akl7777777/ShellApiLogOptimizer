@@ -8,7 +8,7 @@ import ltd.shellapi.plugin.business.log.model.Log;
 import java.util.List;
 
 public interface LogService {
-    void createIndex();
+    void createIndex(LogQueryDTO queryDTO);
 
     void save(Log log, String dynamicIndex);
 
