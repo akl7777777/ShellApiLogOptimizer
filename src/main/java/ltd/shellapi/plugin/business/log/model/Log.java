@@ -1,4 +1,4 @@
-package link.shellgpt.plugin.business.log.model;
+package ltd.shellapi.plugin.business.log.model;
 
 import cn.easyes.annotation.IndexField;
 import cn.easyes.annotation.IndexId;

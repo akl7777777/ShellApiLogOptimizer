@@ -1,9 +1,9 @@
-package link.shellgpt.plugin.business.log.service;
+package ltd.shellapi.plugin.business.log.service;
 
 
 import cn.easyes.core.biz.EsPageInfo;
-import link.shellgpt.plugin.business.log.dto.LogQueryDTO;
-import link.shellgpt.plugin.business.log.model.Log;
+import ltd.shellapi.plugin.business.log.dto.LogQueryDTO;
+import ltd.shellapi.plugin.business.log.model.Log;
 
 import java.util.List;
 

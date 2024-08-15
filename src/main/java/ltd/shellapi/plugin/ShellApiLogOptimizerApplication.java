@@ -1,11 +1,11 @@
-package link.shellgpt.plugin;
+package ltd.shellapi.plugin;
 
 import cn.easyes.starter.register.EsMapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@EsMapperScan("link.shellgpt.plugin.*.*.dao")
+@EsMapperScan("ltd.shellapi.plugin.*.*.dao")
 public class ShellApiLogOptimizerApplication {
 
 	public static void main(String[] args) {

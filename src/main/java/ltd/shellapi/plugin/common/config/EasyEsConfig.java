@@ -1,4 +1,4 @@
-package link.shellgpt.plugin.common.config;
+package ltd.shellapi.plugin.common.config;
 
 import cn.easyes.common.utils.ExceptionUtils;
 import cn.easyes.common.utils.RestHighLevelClientBuilder;

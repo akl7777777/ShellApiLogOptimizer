@@ -1,4 +1,4 @@
-package link.shellgpt.plugin.business.log.dto;
+package ltd.shellapi.plugin.business.log.dto;
 
 import lombok.Data;
 

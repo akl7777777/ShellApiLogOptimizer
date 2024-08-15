@@ -1,14 +1,14 @@
-package link.shellgpt.plugin.business.log.service.impl;
+package ltd.shellapi.plugin.business.log.service.impl;
 
 import cn.easyes.core.biz.EsPageInfo;
 import cn.easyes.core.conditions.select.LambdaEsQueryWrapper;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
-import link.shellgpt.plugin.business.log.dao.LogMapper;
-import link.shellgpt.plugin.business.log.dto.LogQueryDTO;
-import link.shellgpt.plugin.business.log.model.Log;
-import link.shellgpt.plugin.business.log.service.LogService;
+import ltd.shellapi.plugin.business.log.dao.LogMapper;
+import ltd.shellapi.plugin.business.log.dto.LogQueryDTO;
+import ltd.shellapi.plugin.business.log.model.Log;
+import ltd.shellapi.plugin.business.log.service.LogService;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.stereotype.Service;
 

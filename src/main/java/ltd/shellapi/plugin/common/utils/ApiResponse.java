@@ -1,4 +1,4 @@
-package link.shellgpt.plugin.common.utils;
+package ltd.shellapi.plugin.common.utils;
 
 import lombok.Data;
 

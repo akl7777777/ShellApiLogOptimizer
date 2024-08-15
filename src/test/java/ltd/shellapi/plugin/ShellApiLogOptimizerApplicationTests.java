@@ -1,4 +1,4 @@
-package link.shellgpt.plugin;
+package ltd.shellapi.plugin;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

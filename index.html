@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShellApiLogOptimizer - 日志优化插件</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        h2 {
+            color: #34495e;
+        }
+        .feature {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .requirements {
+            background-color: #e9f7ef;
+            border: 1px solid #27ae60;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<h1>ShellApiLogOptimizer</h1>
+<p>ShellApiLogOptimizer 是一款专为 ShellApi 设计的日志优化插件，旨在显著提升日志查询和统计的速度。</p>
+
+<h2>主要特性</h2>
+<div class="feature">
+    <h3>高效查询</h3>
+    <p>优化日志查询算法，大幅提升查询速度，让您更快地获取所需信息。</p>
+</div>
+<div class="feature">
+    <h3>快速统计</h3>
+    <p>改进统计方法，使复杂的日志统计操作变得更加迅速和高效。</p>
+</div>
+<div class="feature">
+    <h3>易于集成</h3>
+    <p>设计为插件形式，可以轻松集成到现有的 ShellApi 系统中，无需大规模修改。</p>
+</div>
+
+<h2>系统要求</h2>
+<div class="requirements">
+    <ul>
+        <li>建议配置：4核CPU，8GB内存以上（32GB以上最佳）</li>
+        <li>推荐使用 Docker Compose 进行部署</li>
+    </ul>
+</div>
+
+<h2>快速开始</h2>
+<ol>
+    <li>克隆项目仓库：
+        <br>
+        <code>git clone https://github.com/akl7777777/ShellApiLogOptimizer.git</code>
+    </li>
+    <li>进入 docker-compose/environment 目录</li>
+    <li>执行 <code>docker compose up -d</code> 启动环境</li>
+    <li>检查 Docker 进程状态，确保启动成功</li>
+    <li>返回项目根目录，执行 <code>docker compose up -d</code> 启动项目</li>
+</ol>
+
+<p>项目将在 8080 端口运行。如遇到权限问题，请尝试执行 <code>chmod 777 -R data</code>。</p>
+
+<h2>贡献与支持</h2>
+<p>我们欢迎社区贡献和反馈。如果您在使用过程中遇到任何问题或有改进建议，请随时提出 issue 或 pull request。</p>
+</body>
+</html>
