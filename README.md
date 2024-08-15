@@ -7,7 +7,7 @@ ShellApiLogOptimizer是一款针对于ShellApi的日志优化插件,可以提升
 
 ## 配置要求
 
-- 建议4C8G内存以上机器
+- 建议4C8G内存以上机器,32G以上最佳
 - 建议使用docker-compose启动
 
 ## 启动方式
