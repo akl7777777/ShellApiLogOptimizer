@@ -25,10 +25,15 @@ jobs:
 
     - name: Publish to GitHub Packages
       run: |
-        mvn deploy \
-        -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/${{ github.repository }} \
-        -Dregistry=https://maven.pkg.github.com/${{ github.repository }} \
+        mvn deploy:deploy-file \
+        -DgroupId=ltd.shellapi \
+        -DartifactId=ShellApiLogOptimizer \
+        -Dversion=0.0.1-SNAPSHOT \
+        -Dpackaging=jar \
+        -Dfile=target/ShellApiLogOptimizer-0.0.1-SNAPSHOT.jar \
         -DrepositoryId=github \
-        -Dtoken=${{ secrets.GITHUB_TOKEN }}
+        -Durl=https://maven.pkg.github.com/${{ github.repository }} \
+        -DpomFile=pom.xml \
+        -DgeneratePom=false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
