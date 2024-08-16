@@ -7,10 +7,10 @@ services:
     environment:
       SERVER_SERVLET_CONTEXT_PATH: /shellApiLogOptimizer
       API_VERSION: service
+      API_AUTH_TOKEN: your_secret_token_here # 请修改此处
       EASY_ES_ENABLE: "true"
-      EASY_ES_ADDRESS: 127.0.0.1:9200
+      EASY_ES_ADDRESS: 127.0.0.1:9200 # 如果您的ElasticSearch服务不在本机，请修改此处
       EASY_ES_USERNAME: elastic
-      EASY_ES_PASSWORD: YourElasticPassword
+      EASY_ES_PASSWORD: YourElasticPassword # 如果您的ElasticSearch服务设置了密码，请修改此处
     volumes:
       - ./logs:/usr/app/logs # 如果您希望将日志文件保存在宿主机上
-

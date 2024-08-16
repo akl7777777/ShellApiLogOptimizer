@@ -10,6 +10,10 @@ COPY --from=build /home/app/target/ShellApiLogOptimizer-0.0.1-SNAPSHOT.jar /usr/
 WORKDIR /usr/app
 EXPOSE 8080
 
+# 复制启动脚本
+COPY start.sh /usr/app/start.sh
+RUN chmod +x /usr/app/start.sh
+
 # 设置环境变量（根据需要修改）
 ENV SERVER_SERVLET_CONTEXT_PATH=/shellApiLogOptimizer \
     API_VERSION=service \
@@ -18,5 +22,5 @@ ENV SERVER_SERVLET_CONTEXT_PATH=/shellApiLogOptimizer \
     EASY_ES_USERNAME=elastic \
     EASY_ES_PASSWORD=YourElasticPassword
 
-# 启动 Java 应用
-CMD ["java", "-jar", "app.jar"]
+# 使用启动脚本来运行应用
+CMD ["/usr/app/start.sh"]
