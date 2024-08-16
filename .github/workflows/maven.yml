@@ -29,12 +29,19 @@ jobs:
     - name: Build with Maven
       run: mvn clean package
     
+    - name: Find JAR file
+      id: find_jar
+      run: |
+        JAR_PATH=$(find target -name "*.jar" -not -name "*sources.jar" -not -name "*javadoc.jar" | head -n 1)
+        echo "JAR_PATH=$JAR_PATH" >> $GITHUB_OUTPUT
+        echo "Found JAR at $JAR_PATH"
+    
     - name: Upload JAR
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./target/ShellApiLogOptimizer-${{ github.ref_name }}.jar
+        asset_path: ${{ steps.find_jar.outputs.JAR_PATH }}
         asset_name: ShellApiLogOptimizer-${{ github.ref_name }}.jar
         asset_content_type: application/java-archive
