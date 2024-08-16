@@ -26,5 +26,9 @@ public class LogQueryDTO {
     private String sql;
     private String ip;
 
+    // excludeTypes
+    private List<Integer> excludeTypes;
+    // excludeFields
+    private List<String> excludeFields;
     // 可以添加构造函数、builder 方法等，根据需要使用
 }

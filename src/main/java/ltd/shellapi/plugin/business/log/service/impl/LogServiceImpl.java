@@ -166,9 +166,23 @@ public class LogServiceImpl implements LogService {
         if (StrUtil.isNotBlank(queryDTO.getContent())) {
             wrapper.like(Log::getContent, queryDTO.getContent());
         }
-        wrapper.orderBy(true,false,Log::getCreatedAt);
+
+        // 处理 excludeTypes
+        if (queryDTO.getExcludeTypes() != null && !queryDTO.getExcludeTypes().isEmpty()) {
+            wrapper.not(w -> w.in(Log::getType, queryDTO.getExcludeTypes()));
+        }
+
+        // 处理 excludeFields
+        if (queryDTO.getExcludeFields() != null && !queryDTO.getExcludeFields().isEmpty()) {
+            wrapper.notSelect(queryDTO.getExcludeFields().toArray(new String[0]));
+        }
+        wrapper.orderBy(true, false, Log::getCreatedAt);
+
         // 物理分页
-        return logMapper.pageQuery(wrapper, queryDTO.getPage(), queryDTO.getSize());
+        EsPageInfo<Log> pageInfo = logMapper.pageQuery(wrapper, queryDTO.getPage(), queryDTO.getSize());
+
+
+        return pageInfo;
     }
 
     @Override
@@ -242,6 +256,10 @@ public class LogServiceImpl implements LogService {
         }
         if (StrUtil.isNotBlank(queryDTO.getContent())) {
             wrapper.like(Log::getContent, queryDTO.getContent());
+        }
+        // 处理 excludeTypes
+        if (queryDTO.getExcludeTypes() != null && !queryDTO.getExcludeTypes().isEmpty()) {
+            wrapper.not(w -> w.in(Log::getType, queryDTO.getExcludeTypes()));
         }
 
         return logMapper.selectCount(wrapper);

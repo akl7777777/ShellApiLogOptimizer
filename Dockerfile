@@ -6,7 +6,7 @@ RUN mvn -f /home/app/pom.xml clean package
 
 # 使用基础 Java 镜像运行 JAR 文件
 FROM openjdk:11-jre-slim
-COPY --from=build /home/app/target/ShellApiLogOptimizer-0.0.1-SNAPSHOT.jar /usr/app/app.jar
+COPY --from=build /home/app/target/ShellApiLogOptimizer-0.1.5-SNAPSHOT.jar /usr/app/app.jar
 WORKDIR /usr/app
 EXPOSE 8080
 
