@@ -23,17 +23,21 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
+    - name: Prepare POM for GitHub Packages
+      run: |
+        cp pom.xml pom.xml.orig
+        sed -i 's/<groupId>ltd.shellapi.plugin<\/groupId>/<groupId>com.github.${{ github.repository_owner }}.shellapi.plugin<\/groupId>/' pom.xml
+
     - name: Publish to GitHub Packages
       run: |
         mvn deploy:deploy-file \
-        -DgroupId=ltd.shellapi \
-        -DartifactId=ShellApiLogOptimizer \
-        -Dversion=0.0.1-SNAPSHOT \
-        -Dpackaging=jar \
+        -DpomFile=pom.xml \
         -Dfile=target/ShellApiLogOptimizer-0.0.1-SNAPSHOT.jar \
         -DrepositoryId=github \
         -Durl=https://maven.pkg.github.com/${{ github.repository }} \
-        -DpomFile=pom.xml \
         -DgeneratePom=false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Restore original POM
+      run: mv pom.xml.orig pom.xml
