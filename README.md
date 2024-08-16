@@ -96,6 +96,55 @@ ShellApiLogOptimizer 是一款针对 ShellApi 的日志优化插件，可以显�
 - 如使用外部 Elasticsearch，请相应调整 `EASY_ES_ADDRESS`、`EASY_ES_USERNAME` 和 `EASY_ES_PASSWORD`
 - 为保证安全，建议修改默认的 `API_AUTH_TOKEN`
 
+## 开发者指南
+
+如果你想要从源码运行或开发这个项目，请按照以下步骤操作：
+
+1. 克隆项目到本地
+   ```shell
+   git clone https://github.com/akl7777777/ShellApiLogOptimizer.git
+   cd ShellApiLogOptimizer
+   ```
+
+2. 确保你的开发环境满足以下要求：
+   - Java 11 或更高版本
+   - Maven 3.6+ 用于依赖管理和构建
+
+3. 配置 Elasticsearch
+   确保你有一个可用的 Elasticsearch 实例。你可以使用项目中提供的 Docker Compose 文件来启动一个 Elasticsearch 容器，或者使用已有的 Elasticsearch 服务。
+
+4. 修改配置
+   在 `src/main/resources/application.properties` 文件中，根据你的环境修改必要的配置，特别是 Elasticsearch 的连接信息。
+
+5. 构建项目
+   ```shell
+   mvn clean package
+   ```
+
+6. 运行应用
+   ```shell
+   mvn spring-boot:run
+   ```
+   或者，你可以使用 IDE 的运行功能来启动 `ShellApiLogOptimizerApplication` 类。
+
+7. 访问应用
+   默认情况下，应用将在 `http://localhost:8080/shellApiLogOptimizer` 上运行。
+
+8. 开发和调试
+   - 使用你喜欢的 IDE（如 IntelliJ IDEA 或 Eclipse）导入项目。
+   - 你可以在 IDE 中设置断点并进行调试。
+   - 对代码进行修改后，可以使用 `mvn clean package` 重新构建，或者依赖 IDE 的热重载功能。
+
+9. 运行测试
+   ```shell
+   mvn test
+   ```
+
+10. 提交变更
+    在提交你的变更之前，请确保所有测试都能通过，并且你的代码符合项目的编码规范。
+
+如果你在开发过程中遇到任何问题，欢迎提出 issue 或在社区中寻求帮助。
+
 ## 贡献
 
 欢迎提交 issues 和 pull requests 来帮助改进这个项目。
