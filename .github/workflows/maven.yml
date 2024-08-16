@@ -4,6 +4,9 @@ on:
   release:
     types: [created]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,20 +20,28 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
     
+    - name: Set version in pom.xml
+      run: |
+        VERSION=${GITHUB_REF#refs/tags/}
+        VERSION=${VERSION#v}  # Remove 'v' prefix if present
+        mvn versions:set -DnewVersion=$VERSION
+    
     - name: Build with Maven
       run: mvn clean package
     
-    - name: Get artifact path
-      id: get_artifact
+    - name: Find JAR file
+      id: find_jar
       run: |
-        echo "ARTIFACT_PATH=$(ls target/ShellApiLogOptimizer-*.jar | head -n 1)" >> $GITHUB_OUTPUT
-
+        JAR_PATH=$(find target -name "*.jar" -not -name "*sources.jar" -not -name "*javadoc.jar" | head -n 1)
+        echo "JAR_PATH=$JAR_PATH" >> $GITHUB_OUTPUT
+        echo "Found JAR at $JAR_PATH"
+    
     - name: Upload JAR
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ${{ steps.get_artifact.outputs.ARTIFACT_PATH }}
+        asset_path: ${{ steps.find_jar.outputs.JAR_PATH }}
         asset_name: ShellApiLogOptimizer-${{ github.ref_name }}.jar
         asset_content_type: application/java-archive
