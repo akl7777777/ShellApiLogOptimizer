@@ -7,9 +7,14 @@ ShellApiLogOptimizer 是一款针对 ShellApi 的日志优化插件，可以显�
 本插件通过优化日志存储和检索机制，大幅提高了 ShellApi 的日志处理性能。它特别适用于大规模日志数据的快速查询和分析。
 
 ## 项目结构
-ShellApiLogOptimizer/docker-compose/environment (必须,one-api,new-api也可使用)为ELK基础环境,整个项目依赖于此环境,可以单独拆分一台服务器部署
-ShellApiLogOptimizer/docker-compose/filebeat (可选,one-api,new-api也可使用)需要在原始日志文件的服务器部署,用来监控日志,整合到elk
-ShellApiLogOptimizer/docker-compose.yml (shell-api专用)用于整合log表的结构化数据
+
+```
+ShellApiLogOptimizer/
+├── docker-compose/
+│   ├── environment/  # ELK基础环境(必需,one-api,new-api也可使用)
+│   └── filebeat/     # 日志监控(可选,one-api,new-api也可使用)
+└── docker-compose.yml  # ShellApi专用,用于整合log表的结构化数据
+```
 
 ## 配置要求
 
