@@ -1,0 +1,10 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/your_app/*.log
+
+output.logstash:
+  hosts: ["your_elk_server_ip:5044"]
+
+logging.level: info

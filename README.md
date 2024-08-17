@@ -157,3 +157,13 @@ ShellApiLogOptimizer 是一款针对 ShellApi 的日志优化插件，可以显�
 我们欢迎并鼓励所有形式的开源贡献。选择 AGPL 许可证是为了确保任何基于本项目的改进都能回馈到开源社区。这不会影响您贡献代码的能力，但要求任何修改过的版本在通过网络提供服务时也必须开源。
 
 完整的许可证文本可以在项目根目录的 [LICENSE](LICENSE) 文件中找到。
+
+
+## 日志文件整合到ELK
+
+1. 拷贝docker-compose/filebeat 下面的所有文件到ShellAPI 或者one api new api 项目部署的服务器上
+2. 确保将 /path/to/your/logs 替换为你实际的日志文件所在的目录路径，your_elk_server_ip 替换为运行 ELK 栈的服务器 IP
+3. 启动 Filebeat
+```shell
+docker-compose up -d
+```
