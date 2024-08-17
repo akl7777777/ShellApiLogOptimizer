@@ -101,6 +101,14 @@ ShellApiLogOptimizer/
 - `EASY_ES_USERNAME` / `easy-es.username`: Elasticsearch 用户名
 - `EASY_ES_PASSWORD` / `easy-es.password`: Elasticsearch 密码
 
+## 效果图
+
+日志条件查询
+![日志条件查询](images/img.png)
+统计饼图
+![日志统计饼图](images/img_1.png)
+
+
 ## 注意事项
 
 - 确保 Elasticsearch 服务正常运行且可访问
