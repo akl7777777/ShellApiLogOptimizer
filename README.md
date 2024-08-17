@@ -181,7 +181,7 @@ ShellApiLogOptimizer/
 
 0. 前提:需要提前部署上面的ShellApiLogOptimizer/docker-compose/environment/docker-compose.yml
 1. 拷贝docker-compose/filebeat 下面的所有文件到ShellAPI 或者one api new api 项目部署的服务器上
-2. 确保将 /path/to/your/logs 替换为你实际的日志文件所在的目录路径，支持同一个机器启动了多个ShellApi,
+2. 确保将 filebeat文件夹下的所有文件中的日志路径 /path/to/your/logs 替换为你实际的日志文件所在的目录路径，支持同一个机器启动了多个ShellApi,
 用system_id进行区别,如果只部署了一个,可以删掉其他多余的配置,your_elk_server_ip 替换为运行 ELK 栈的服务器 IP
 3. 启动 Filebeat
 ```shell
