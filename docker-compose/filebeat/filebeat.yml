@@ -10,8 +10,9 @@ filebeat.inputs:
       match: after
     fields:
       log_type: shellapi
+    fields_under_root: true
 
 output.logstash:
   hosts: ["your_elk_server_ip:5044"]
 
-logging.level: info
+logging.level: debug
