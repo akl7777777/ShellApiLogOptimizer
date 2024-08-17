@@ -35,6 +35,7 @@ ShellApiLogOptimizer 是一款针对 ShellApi 的日志优化插件，可以显�
    cd docker-compose/environment
    docker compose up -d
    ```
+   环境启动成功后看一眼docker ps进程死了没,死了就看下报错日志,如果报路径无权限建议chmod 777 -R es_data
 
 4. 启动项目
    返回项目根目录并运行：
