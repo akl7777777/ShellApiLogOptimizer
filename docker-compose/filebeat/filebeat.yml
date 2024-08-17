@@ -2,7 +2,14 @@ filebeat.inputs:
   - type: log
     enabled: true
     paths:
-      - /var/log/your_app/*.log
+      - /root/shellapi/logs/**/*
+    recursive_glob.enabled: true
+    multiline:
+      pattern: '^\['
+      negate: true
+      match: after
+    fields:
+      log_type: shellapi
 
 output.logstash:
   hosts: ["your_elk_server_ip:5044"]
