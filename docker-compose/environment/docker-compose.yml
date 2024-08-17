@@ -49,12 +49,13 @@ services:
     image: docker.elastic.co/kibana/kibana:7.14.0
     container_name: kibana
     ports:
-      - 5601:5601
+      - "5601:5601"
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_HOSTS: '["http://elasticsearch:9200"]'
       ELASTICSEARCH_USERNAME: elastic
       ELASTICSEARCH_PASSWORD: YourElasticPassword
+      I18N_LOCALE: "zh-CN"
     networks:
       - elk
     depends_on:
