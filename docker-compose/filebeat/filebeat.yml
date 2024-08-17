@@ -10,9 +10,38 @@ filebeat.inputs:
       match: after
     fields:
       log_type: shellapi
+      system_id: shellapi
+    fields_under_root: true
+
+  - type: log
+    enabled: true
+    paths:
+      - /root/shellapi35/logs/**/*
+    recursive_glob.enabled: true
+    multiline:
+      pattern: '^\['
+      negate: true
+      match: after
+    fields:
+      log_type: shellapi
+      system_id: shellapi35
+    fields_under_root: true
+
+  - type: log
+    enabled: true
+    paths:
+      - /root/shellapi40/logs/**/*
+    recursive_glob.enabled: true
+    multiline:
+      pattern: '^\['
+      negate: true
+      match: after
+    fields:
+      log_type: shellapi
+      system_id: shellapi40
     fields_under_root: true
 
 output.logstash:
   hosts: ["your_elk_server_ip:5044"]
 
-logging.level: debug
+logging.level: info
