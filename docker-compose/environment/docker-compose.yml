@@ -40,6 +40,8 @@ services:
       - "9600:9600"
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      # 新增：设置日志级别为 DEBUG
+      LOG_LEVEL: "debug"
     networks:
       - elk
     depends_on:
