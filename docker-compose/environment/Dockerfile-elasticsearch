@@ -1,2 +1,14 @@
+# Dockerfile-elasticsearch
 FROM docker.elastic.co/elasticsearch/elasticsearch:7.14.0
-RUN bin/elasticsearch-plugin install --batch https://release.infinilabs.com/analysis-ik/stable/elasticsearch-analysis-ik-7.14.0.zip
+
+# 切换到 root 用户以确保有权限操作文件
+USER root
+
+# 将本地插件文件复制到镜像中
+COPY elasticsearch-analysis-ik-7.14.0.zip /tmp/ik.zip
+
+# 安装本地插件
+RUN bin/elasticsearch-plugin install --batch file:///tmp/ik.zip
+
+# 切换回 Elasticsearch 默认用户（非 root）
+USER elasticsearch
