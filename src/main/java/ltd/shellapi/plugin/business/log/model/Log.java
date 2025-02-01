@@ -24,7 +24,7 @@ public class Log {
     @IndexField
     private int userId;
 
-    @IndexField(fieldType = FieldType.DATE, dateFormat = "epoch_millis")
+    @IndexField(fieldType = FieldType.DATE)
     private Date createdAt;
 
     @IndexField
