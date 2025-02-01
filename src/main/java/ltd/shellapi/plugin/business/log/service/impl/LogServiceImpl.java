@@ -79,7 +79,18 @@ public class LogServiceImpl implements LogService {
         if (StrUtil.isNotBlank(queryDTO.getIp())) {
             wrapper.eq(Log::getIp, queryDTO.getIp());
         }
-
+        if (StrUtil.isNotBlank(queryDTO.getRemoteIp())) {
+            wrapper.eq(Log::getRemoteIp, queryDTO.getRemoteIp());
+        }
+        if (StrUtil.isNotBlank(queryDTO.getTokenGroup())) {
+            wrapper.eq(Log::getTokenGroup, queryDTO.getTokenGroup());
+        }
+        if (StrUtil.isNotBlank(queryDTO.getErrorCode())) {
+            wrapper.eq(Log::getErrorCode, queryDTO.getErrorCode());
+        }
+        if (StrUtil.isNotBlank(queryDTO.getOther())) {
+            wrapper.like(Log::getOther, queryDTO.getOther());
+        }
         if (queryDTO.getUserId() != null && queryDTO.getUserId() != 0) {
             wrapper.eq(Log::getUserId, queryDTO.getUserId());
         }
@@ -131,6 +142,18 @@ public class LogServiceImpl implements LogService {
         }
         if (StrUtil.isNotBlank(queryDTO.getIp())) {
             wrapper.eq(Log::getIp, queryDTO.getIp());
+        }
+        if (StrUtil.isNotBlank(queryDTO.getRemoteIp())) {
+            wrapper.eq(Log::getRemoteIp, queryDTO.getRemoteIp());
+        }
+        if (StrUtil.isNotBlank(queryDTO.getTokenGroup())) {
+            wrapper.eq(Log::getTokenGroup, queryDTO.getTokenGroup());
+        }
+        if (StrUtil.isNotBlank(queryDTO.getErrorCode())) {
+            wrapper.eq(Log::getErrorCode, queryDTO.getErrorCode());
+        }
+        if (StrUtil.isNotBlank(queryDTO.getOther())) {
+            wrapper.like(Log::getOther, queryDTO.getOther());
         }
         if (queryDTO.getUserId() != null && queryDTO.getUserId() != 0) {
             wrapper.eq(Log::getUserId, queryDTO.getUserId());
@@ -222,6 +245,18 @@ public class LogServiceImpl implements LogService {
         }
         if (StrUtil.isNotBlank(queryDTO.getIp())) {
             wrapper.eq(Log::getIp, queryDTO.getIp());
+        }
+        if (StrUtil.isNotBlank(queryDTO.getRemoteIp())) {
+            wrapper.eq(Log::getRemoteIp, queryDTO.getRemoteIp());
+        }
+        if (StrUtil.isNotBlank(queryDTO.getTokenGroup())) {
+            wrapper.eq(Log::getTokenGroup, queryDTO.getTokenGroup());
+        }
+        if (StrUtil.isNotBlank(queryDTO.getErrorCode())) {
+            wrapper.eq(Log::getErrorCode, queryDTO.getErrorCode());
+        }
+        if (StrUtil.isNotBlank(queryDTO.getOther())) {
+            wrapper.like(Log::getOther, queryDTO.getOther());
         }
         if (queryDTO.getUserId() != null && queryDTO.getUserId() != 0) {
             wrapper.eq(Log::getUserId, queryDTO.getUserId());

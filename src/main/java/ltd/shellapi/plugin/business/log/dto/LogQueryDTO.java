@@ -15,6 +15,7 @@ public class LogQueryDTO {
     private String username;
     private String tokenName;
     private String tokenKey;
+    private String tokenGroup;
     private String channelName;
     private Integer channelId;
     private String content;
@@ -25,6 +26,9 @@ public class LogQueryDTO {
     private Boolean isStream;  // 而不是 isStream
     private String sql;
     private String ip;
+    private String remoteIp;
+    private String other;
+    private String errorCode;
 
     // excludeTypes
     private List<Integer> excludeTypes;

@@ -49,6 +49,9 @@ public class Log {
     private int quota;
 
     @IndexField
+    private int costQuota;
+
+    @IndexField
     private int promptTokens;
 
     @IndexField
@@ -59,6 +62,9 @@ public class Log {
 
     @IndexField(strategy = FieldStrategy.NOT_EMPTY)
     private String tokenKey;
+
+    @IndexField(strategy = FieldStrategy.NOT_EMPTY)
+    private String tokenGroup;
 
     @IndexField(fieldType = FieldType.TEXT)
     private String prompt;
@@ -77,4 +83,13 @@ public class Log {
 
     @IndexField(strategy = FieldStrategy.NOT_EMPTY)
     private String ip;
+
+    @IndexField(strategy = FieldStrategy.NOT_EMPTY)
+    private String remoteIp;
+
+    @IndexField(fieldType = FieldType.TEXT)
+    private String other;
+
+    @IndexField(strategy = FieldStrategy.NOT_EMPTY)
+    private String errorCode;
 }
