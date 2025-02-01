@@ -69,13 +69,13 @@ public class Log {
     @IndexField(fieldType = FieldType.TEXT)
     private String prompt;
 
-    @IndexField(fieldType = FieldType.DATE, dateFormat = "epoch_millis")
+    @IndexField
     private long requestDuration;
 
-    @IndexField(fieldType = FieldType.DATE, dateFormat = "epoch_millis")
+    @IndexField
     private long responseFirstByteDuration;
 
-    @IndexField(fieldType = FieldType.DATE, dateFormat = "epoch_millis")
+    @IndexField
     private long totalDuration;
 
     @IndexField
