@@ -1,9 +1,5 @@
 package ltd.shellapi.plugin.common.config;
 
-import cn.easyes.common.utils.ExceptionUtils;
-import cn.easyes.common.utils.RestHighLevelClientBuilder;
-import cn.easyes.common.utils.StringUtils;
-import cn.easyes.starter.config.EasyEsConfigProperties;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import org.apache.http.HttpHost;
@@ -24,8 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static cn.easyes.common.constants.BaseEsConstants.COLON;
-import static cn.easyes.common.constants.BaseEsConstants.DEFAULT_SCHEMA;
 
 @Configuration
 public class EasyEsConfig {

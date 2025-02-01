@@ -1,9 +1,9 @@
 package ltd.shellapi.plugin.business.log.service;
 
 
-import cn.easyes.core.biz.EsPageInfo;
 import ltd.shellapi.plugin.business.log.dto.LogQueryDTO;
 import ltd.shellapi.plugin.business.log.model.Log;
+import org.dromara.easyes.core.biz.EsPageInfo;
 
 import java.util.List;
 

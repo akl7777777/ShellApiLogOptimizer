@@ -1,11 +1,11 @@
 package ltd.shellapi.plugin.business.log.controller;
 
-import cn.easyes.core.biz.EsPageInfo;
 import cn.hutool.log.LogFactory;
 import ltd.shellapi.plugin.business.log.dto.LogQueryDTO;
 import ltd.shellapi.plugin.business.log.model.Log;
 import ltd.shellapi.plugin.business.log.service.LogService;
 import ltd.shellapi.plugin.common.utils.ApiResponse;
+import org.dromara.easyes.core.biz.EsPageInfo;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

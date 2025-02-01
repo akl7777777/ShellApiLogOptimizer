@@ -1,7 +1,5 @@
 package ltd.shellapi.plugin.business.log.service.impl;
 
-import cn.easyes.core.biz.EsPageInfo;
-import cn.easyes.core.conditions.select.LambdaEsQueryWrapper;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
@@ -9,6 +7,8 @@ import ltd.shellapi.plugin.business.log.dao.LogMapper;
 import ltd.shellapi.plugin.business.log.dto.LogQueryDTO;
 import ltd.shellapi.plugin.business.log.model.Log;
 import ltd.shellapi.plugin.business.log.service.LogService;
+import org.dromara.easyes.core.biz.EsPageInfo;
+import org.dromara.easyes.core.conditions.select.LambdaEsQueryWrapper;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.stereotype.Service;
 
@@ -83,10 +83,10 @@ public class LogServiceImpl implements LogService {
         if (queryDTO.getUserId() != null && queryDTO.getUserId() != 0) {
             wrapper.eq(Log::getUserId, queryDTO.getUserId());
         }
-        if (queryDTO.getType() != null && queryDTO.getType().size() > 0) {
+        if (!CollUtil.isEmpty(queryDTO.getType())) {
             wrapper.in(Log::getType, queryDTO.getType());
         }
-        if (queryDTO.getChannelId() != 0) {
+        if (queryDTO.getChannelId() != null && queryDTO.getChannelId() != 0) {
             wrapper.eq(Log::getChannelId, queryDTO.getChannelId());
         }
         if (StrUtil.isNotBlank(queryDTO.getTokenKey())) {
@@ -122,7 +122,6 @@ public class LogServiceImpl implements LogService {
             logMapper.setCurrentActiveIndex(queryDTO.getDynamicIndex());
         }
         LambdaEsQueryWrapper<Log> wrapper = new LambdaEsQueryWrapper<>();
-
         // 添加查询条件
         if (StrUtil.isNotBlank(queryDTO.getRequestId())) {
             wrapper.eq(Log::getRequestId, queryDTO.getRequestId());
@@ -169,7 +168,7 @@ public class LogServiceImpl implements LogService {
 
         // 处理 excludeTypes
         if (queryDTO.getExcludeTypes() != null && !queryDTO.getExcludeTypes().isEmpty()) {
-            wrapper.not(w -> w.in(Log::getType, queryDTO.getExcludeTypes()));
+            wrapper.must(w -> w.not(w1 -> w1.in(Log::getType, queryDTO.getExcludeTypes())));
         }
 
         // 处理 excludeFields
@@ -259,7 +258,7 @@ public class LogServiceImpl implements LogService {
         }
         // 处理 excludeTypes
         if (queryDTO.getExcludeTypes() != null && !queryDTO.getExcludeTypes().isEmpty()) {
-            wrapper.not(w -> w.in(Log::getType, queryDTO.getExcludeTypes()));
+            wrapper.must(w -> w.not(w1 -> w1.in(Log::getType, queryDTO.getExcludeTypes())));
         }
 
         return logMapper.selectCount(wrapper);

@@ -1,12 +1,12 @@
 package ltd.shellapi.plugin.business.log.model;
 
-import cn.easyes.annotation.IndexField;
-import cn.easyes.annotation.IndexId;
-import cn.easyes.annotation.IndexName;
-import cn.easyes.annotation.rely.FieldStrategy;
-import cn.easyes.annotation.rely.FieldType;
-import cn.easyes.annotation.rely.IdType;
 import lombok.Data;
+import org.dromara.easyes.annotation.IndexField;
+import org.dromara.easyes.annotation.IndexId;
+import org.dromara.easyes.annotation.IndexName;
+import org.dromara.easyes.annotation.rely.FieldStrategy;
+import org.dromara.easyes.annotation.rely.FieldType;
+import org.dromara.easyes.annotation.rely.IdType;
 
 import java.util.Date;
 
